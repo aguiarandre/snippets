@@ -1,0 +1,23 @@
+<snippet>
+	<content><![CDATA[
+FROM ${1:TABLE}
+SELECT ${2:PK}, 
+	   ${3:AGG_FUNCTION}(${4:VARIABLE}) OVER(
+	   ${5:PARTITION BY ${6:PARTITION_COLUMN}}
+	   -- Not using the order by clause defaults to: rows between unbounded preceding and unbounded following (all rows within partition group)
+	   ORDER BY ${7:ORDER_COLUMN}
+	   ${8:-- If you use, though, the order by clause, it defaults to: rows between unbounded preceding and current row (top to current)
+	   ROWS BETWEEN ${9:N_ROWS} PRECEDING ROWS AND CURRENT ROW
+	   -- If you use the above, it will consider N+1 rows, if you }
+	   ) AS ${10:RUNNING_SUM}${11:,
+	   ROW_NUMBER() OVER (PARTITION BY ${6:PARTITION_COLUMN} ORDER BY ${7:ORDER_COLUMN}) AS ROW_NUMBER}${12:,
+	   -- RANK() works exactly like ROW_NUMBER(), except the same ID for the ORDER_COLUMN will have the same rank.
+	   RANK() OVER (PARTITION BY ${6:PARTITION_COLUMN} ORDER BY ${7:ORDER_COLUMN}) AS RANK}${13:,
+	   NTILE(${14:N_QUANTILES}) OVER (ORDER BY ${7:ORDER_COLUMN})}
+	   ;
+$0
+]]></content>
+	<tabTrigger>windowing</tabTrigger>
+	<description>Hive's windowing function</description>
+    <scope>source.sql</scope>
+</snippet>

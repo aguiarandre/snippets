@@ -1,0 +1,13 @@
+<snippet>
+	<content><![CDATA[
+CREATE TABLE ${1:TABLE_NAME} AS 
+SELECT *
+  FROM ${4:LEFT_TABLE} 
+  	   SEMI LEFT JOIN
+  	   ${5:RIGHT_TABLE}
+  	ON A.${6:PK_TABLE_A} = B.${7:PK_TABLE_B};
+]]></content>
+	 <tabTrigger>leftsemijoin</tabTrigger> -->
+	 <description> Hive's semi left join </description>
+</snippet>
+

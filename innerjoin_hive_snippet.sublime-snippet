@@ -1,0 +1,14 @@
+<snippet>
+	<content><![CDATA[
+CREATE TABLE ${1:TABLE_NAME} AS 
+SELECT A.${2:*},
+	   B.${0:*}
+  FROM ${4:LEFT_TABLE} AS A
+  	   INNER JOIN 
+  	   ${5:RIGHT_TABLE} AS B
+  	ON A.${6:PK_TABLE_A} = B.${7:PK_TABLE_B};
+]]></content>
+	 <tabTrigger>innerjoin</tabTrigger> -->
+	 <description> Hive's inner join </description>
+</snippet>
+
